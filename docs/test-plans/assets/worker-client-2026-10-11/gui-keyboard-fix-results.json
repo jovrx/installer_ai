@@ -1,0 +1,4 @@
+{
+  "pass": true,
+  "steps": "Tab before consent; Alt+A; focus password field; literal key containing l/d/x/c remains masked; focus survives timer refresh; Alt+C; immediate Alt+L; Tab; Alt+L; Alt+D; Alt+X exits"
+}

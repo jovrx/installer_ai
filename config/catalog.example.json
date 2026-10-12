@@ -1,0 +1,24 @@
+[
+  {
+    "id": "git",
+    "name": "Git",
+    "version": "2.51.0",
+    "installer": "exe",
+    "url": "https://github.com/git-for-windows/git/releases/download/v2.51.0.windows.1/Git-2.51.0-64-bit.exe",
+    "sha256": "843037416371600a7f289be8fe2b2224afe1c1bb0736bbab7b3ff393e6a7aaf2",
+    "size_bytes": 64701312,
+    "allowed_hosts": ["github.com", "release-assets.githubusercontent.com", "objects.githubusercontent.com"],
+    "requires_admin": true
+  },
+  {
+    "id": "node",
+    "name": "Node.js",
+    "version": "24.9.0",
+    "installer": "msi",
+    "url": "https://nodejs.org/dist/v24.9.0/node-v24.9.0-x64.msi",
+    "sha256": "0fbae803c054807758f91463dea94b9301cc44b7d3545e7af5b58f5ca6396cf0",
+    "size_bytes": 67108864,
+    "allowed_hosts": ["nodejs.org"],
+    "requires_admin": true
+  }
+]

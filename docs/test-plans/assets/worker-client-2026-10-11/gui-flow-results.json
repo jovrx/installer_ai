@@ -1,0 +1,10 @@
+[
+  {
+    "scenario": "consent/key/online/logs/scope/cancel/disconnect/close",
+    "pass": true
+  },
+  {
+    "scenario": "native file chooser/cancel/invalid file/close",
+    "pass": true
+  }
+]

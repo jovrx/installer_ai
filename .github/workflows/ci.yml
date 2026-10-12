@@ -1,0 +1,43 @@
+name: RemoteOps CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.3'
+          cache: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Build UI and cross-platform binaries
+        run: node scripts/build.mjs
+      - name: Unit, protocol and integration tests
+        run: go test -race -count=1 ./...
+      - name: Web behavior tests
+        run: npm test --prefix web
+      - name: Static analysis
+        run: go vet ./...
+      - name: Upload binaries and checksums
+        uses: actions/upload-artifact@v4
+        with:
+          name: remoteops-${{ github.sha }}
+          path: dist/
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.3'
+      - name: Windows worker and permission tests
+        shell: pwsh
+        run: go test -count=1 ./internal/security/... ./pkg/protocol/... ./internal/worker/...

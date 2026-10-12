@@ -1,0 +1,28 @@
+[
+  {
+    "size": "100x30",
+    "rejection_ctrl_c": true
+  },
+  {
+    "size": "100x30",
+    "mask": true,
+    "explicit_consent": true,
+    "selected_logs": true,
+    "cancel": true,
+    "disconnect": true,
+    "ctrl_c": true
+  },
+  {
+    "size": "60x18",
+    "rejection_ctrl_c": true
+  },
+  {
+    "size": "60x18",
+    "mask": true,
+    "explicit_consent": true,
+    "selected_logs": true,
+    "cancel": true,
+    "disconnect": true,
+    "ctrl_c": true
+  }
+]

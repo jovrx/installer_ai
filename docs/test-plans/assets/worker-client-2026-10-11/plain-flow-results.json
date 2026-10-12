@@ -1,0 +1,7 @@
+{
+  "masked_read_password": true,
+  "explicit_chinese_consent": true,
+  "cancel": true,
+  "confirmed_disconnect": true,
+  "ctrl_c_exit": true
+}

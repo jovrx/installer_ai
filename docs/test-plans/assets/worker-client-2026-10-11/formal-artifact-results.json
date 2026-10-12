@@ -1,0 +1,72 @@
+[
+  {
+    "artifact": "remoteops-worker-windows-amd64.exe",
+    "x64": true,
+    "subsystem": 3,
+    "help_exit": 0,
+    "sha256": "1e2a48b558571b7ed4591ed00df348654df344194a854be24230d5d3850730b5"
+  },
+  {
+    "artifact": "remoteops-worker-gui-windows-amd64.exe",
+    "x64": true,
+    "subsystem": 2,
+    "help_exit": 0,
+    "sha256": "77b1a417e2829dac22fdab0be79469ee0185ed98a9847bc421402a18da48960c"
+  },
+  {
+    "formal_gui_default": true,
+    "file_dialog_cancel": true,
+    "file_read": true,
+    "explicit_consent_gate": true,
+    "native_masked_key": true,
+    "closed_without_connecting": true
+  },
+  {
+    "gui_native_parameter_error_visible": true,
+    "error_exit": 1
+  },
+  {
+    "formal_console_default_tui": true,
+    "file_read": true,
+    "enter_does_not_consent": true,
+    "key_masked": true,
+    "ctrl_c_without_connecting": true
+  },
+  {
+    "final_fix": {
+      "review_findings": [
+        "Important 1",
+        "Important 2",
+        "Minor 1",
+        "Minor 2"
+      ],
+      "affected_packages": [
+        "internal/worker",
+        "internal/worker/client",
+        "internal/worker/ui/gui",
+        "internal/worker/ui/tui"
+      ],
+      "test": "PASS",
+      "race": "PASS",
+      "vet_exit": 0,
+      "bounded_running_retention_100_20": true,
+      "stable_ids_and_cancel_targets": true,
+      "static_completed_long_log_scroll": true,
+      "appended_log_reading_selection_preserved": true,
+      "tail_follows_only_at_bottom_without_selection": true,
+      "inspection_success_copy": true,
+      "active_notice_and_running_cancelling_history_copy": true,
+      "actual_conpty_frame": {
+        "width": 100,
+        "height": 30,
+        "simulated_transport_only": true,
+        "active_notice_correct": true,
+        "history_progress_correct": true,
+        "inspection_result_correct": true,
+        "ctrl_c_exited": true
+      },
+      "evidence_directory": ".superpowers/sdd/2026-10-11-worker-client-experience/final-fix-artifacts",
+      "real_network_or_installation": false
+    }
+  }
+]

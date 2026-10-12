@@ -1,0 +1,2693 @@
+{
+  "components": {
+    "schemas": {
+      "APIError": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
+      "Approval": {
+        "additionalProperties": false,
+        "properties": {
+          "consumed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "device_id": {
+            "type": "string"
+          },
+          "digest": {
+            "type": "string"
+          },
+          "expires_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "plan_id": {
+            "type": "string"
+          },
+          "session_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "plan_id",
+          "session_id",
+          "device_id",
+          "digest",
+          "status",
+          "created_at",
+          "expires_at"
+        ],
+        "type": "object"
+      },
+      "AuditEvent": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "type": "string"
+          },
+          "actor": {
+            "type": "string"
+          },
+          "device_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "result": {
+            "type": "string"
+          },
+          "session_id": {
+            "type": "string"
+          },
+          "task_id": {
+            "type": "string"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "timestamp",
+          "actor",
+          "action",
+          "result"
+        ],
+        "type": "object"
+      },
+      "CatalogEntry": {
+        "additionalProperties": false,
+        "properties": {
+          "allowed_hosts": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "id": {
+            "type": "string"
+          },
+          "installer": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "requires_admin": {
+            "type": "boolean"
+          },
+          "sha256": {
+            "type": "string"
+          },
+          "size_bytes": {
+            "type": "integer"
+          },
+          "source": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "winget_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "version",
+          "installer",
+          "requires_admin"
+        ],
+        "type": "object"
+      },
+      "Config": {
+        "additionalProperties": false,
+        "properties": {
+          "heartbeat_ttl_seconds": {
+            "type": "integer"
+          },
+          "log_max_bytes": {
+            "type": "integer"
+          },
+          "max_concurrency": {
+            "type": "integer"
+          },
+          "pairing_ttl_seconds": {
+            "type": "integer"
+          },
+          "retention_days": {
+            "type": "integer"
+          },
+          "session_ttl_seconds": {
+            "type": "integer"
+          },
+          "task_timeout_seconds": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "max_concurrency",
+          "task_timeout_seconds",
+          "pairing_ttl_seconds",
+          "session_ttl_seconds",
+          "heartbeat_ttl_seconds",
+          "log_max_bytes",
+          "retention_days"
+        ],
+        "type": "object"
+      },
+      "CreateApprovalRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "plan_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "plan_id"
+        ],
+        "type": "object"
+      },
+      "CreateSessionRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          }
+        },
+        "required": [
+          "scope"
+        ],
+        "type": "object"
+      },
+      "CreateSessionResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "pairing": {
+            "$ref": "#/components/schemas/PairingBundle"
+          },
+          "session": {
+            "$ref": "#/components/schemas/Session"
+          }
+        },
+        "required": [
+          "session",
+          "pairing"
+        ],
+        "type": "object"
+      },
+      "CreateTaskRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "approval_id": {
+            "type": "string"
+          },
+          "idempotency_key": {
+            "type": "string"
+          },
+          "spec": {
+            "$ref": "#/components/schemas/TaskSpec"
+          }
+        },
+        "required": [
+          "spec",
+          "idempotency_key"
+        ],
+        "type": "object"
+      },
+      "Device": {
+        "additionalProperties": false,
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "client_version": {
+            "type": "string"
+          },
+          "connected_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "info": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SystemInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "last_heartbeat": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "online": {
+            "type": "boolean"
+          },
+          "os": {
+            "type": "string"
+          },
+          "session_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "session_id",
+          "hostname",
+          "os",
+          "client_version",
+          "address",
+          "online",
+          "connected_at",
+          "last_heartbeat"
+        ],
+        "type": "object"
+      },
+      "DiskInfo": {
+        "additionalProperties": false,
+        "properties": {
+          "free_bytes": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "total_bytes": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name",
+          "total_bytes",
+          "free_bytes"
+        ],
+        "type": "object"
+      },
+      "ErrorEnvelope": {
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/APIError"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "type": "object"
+      },
+      "GPUInfo": {
+        "additionalProperties": false,
+        "properties": {
+          "driver": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "driver"
+        ],
+        "type": "object"
+      },
+      "HeartbeatRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "device_id": {
+            "type": "string"
+          },
+          "session_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "session_id",
+          "device_id"
+        ],
+        "type": "object"
+      },
+      "LogEntry": {
+        "additionalProperties": false,
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "integer"
+          },
+          "stream": {
+            "type": "string"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sequence",
+          "timestamp",
+          "stream",
+          "message"
+        ],
+        "type": "object"
+      },
+      "LoginRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "token"
+        ],
+        "type": "object"
+      },
+      "LoginResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "csrf_token": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "csrf_token"
+        ],
+        "type": "object"
+      },
+      "LogsPage": {
+        "additionalProperties": false,
+        "properties": {
+          "entries": {
+            "items": {
+              "$ref": "#/components/schemas/LogEntry"
+            },
+            "type": "array"
+          },
+          "next_after": {
+            "type": "integer"
+          },
+          "truncated": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "entries",
+          "next_after",
+          "truncated"
+        ],
+        "type": "object"
+      },
+      "NetworkStatus": {
+        "additionalProperties": false,
+        "properties": {
+          "addresses": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "error": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "state",
+          "addresses"
+        ],
+        "type": "object"
+      },
+      "PackageRef": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ],
+        "type": "object"
+      },
+      "PairingBundle": {
+        "additionalProperties": false,
+        "properties": {
+          "authorization_seconds": {
+            "type": "integer"
+          },
+          "catalog": {
+            "items": {
+              "$ref": "#/components/schemas/CatalogEntry"
+            },
+            "type": "array"
+          },
+          "catalog_digest": {
+            "type": "string"
+          },
+          "controller_name": {
+            "type": "string"
+          },
+          "controller_url": {
+            "type": "string"
+          },
+          "expires_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "pairing_token": {
+            "type": "string"
+          },
+          "protocol_version": {
+            "type": "string"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "session_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "protocol_version",
+          "controller_name",
+          "controller_url",
+          "session_id",
+          "pairing_token",
+          "expires_at",
+          "authorization_seconds",
+          "scope",
+          "catalog",
+          "catalog_digest"
+        ],
+        "type": "object"
+      },
+      "Plan": {
+        "additionalProperties": false,
+        "properties": {
+          "catalog_digest": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "digest": {
+            "type": "string"
+          },
+          "expires_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "spec": {
+            "$ref": "#/components/schemas/TaskSpec"
+          },
+          "steps": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "spec",
+          "digest",
+          "catalog_digest",
+          "steps",
+          "created_at",
+          "expires_at"
+        ],
+        "type": "object"
+      },
+      "RegisterRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "client_version": {
+            "type": "string"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "os": {
+            "type": "string"
+          },
+          "pairing_token": {
+            "type": "string"
+          },
+          "port": {
+            "type": "integer"
+          },
+          "protocol_version": {
+            "type": "string"
+          },
+          "session_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "protocol_version",
+          "session_id",
+          "pairing_token",
+          "hostname",
+          "os",
+          "client_version",
+          "port"
+        ],
+        "type": "object"
+      },
+      "RegisterResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "catalog": {
+            "items": {
+              "$ref": "#/components/schemas/CatalogEntry"
+            },
+            "type": "array"
+          },
+          "device": {
+            "$ref": "#/components/schemas/Device"
+          },
+          "session": {
+            "$ref": "#/components/schemas/Session"
+          },
+          "session_token": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "session",
+          "device",
+          "session_token",
+          "catalog"
+        ],
+        "type": "object"
+      },
+      "Scope": {
+        "additionalProperties": false,
+        "properties": {
+          "allow_admin": {
+            "type": "boolean"
+          },
+          "allowed_packages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "allowed_tasks": {
+            "items": {
+              "enum": [
+                "inspect_system",
+                "install_package"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "allowed_tasks",
+          "allowed_packages",
+          "allow_admin"
+        ],
+        "type": "object"
+      },
+      "Session": {
+        "additionalProperties": false,
+        "properties": {
+          "cleanup_error": {
+            "type": "string"
+          },
+          "closed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "controller_name": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "device_id": {
+            "type": "string"
+          },
+          "expires_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "last_heartbeat": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "node_id": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "pairing_expires_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "state": {
+            "enum": [
+              "pending_pair",
+              "connecting",
+              "online",
+              "running",
+              "revoking",
+              "closed",
+              "cleanup_pending",
+              "expired",
+              "failed"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "operator",
+          "controller_name",
+          "scope",
+          "state",
+          "created_at",
+          "pairing_expires_at",
+          "expires_at"
+        ],
+        "type": "object"
+      },
+      "SystemInfo": {
+        "additionalProperties": false,
+        "properties": {
+          "cpu": {
+            "type": "string"
+          },
+          "disks": {
+            "items": {
+              "$ref": "#/components/schemas/DiskInfo"
+            },
+            "type": "array"
+          },
+          "elevated": {
+            "type": "boolean"
+          },
+          "gpus": {
+            "items": {
+              "$ref": "#/components/schemas/GPUInfo"
+            },
+            "type": "array"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "memory_bytes": {
+            "type": "integer"
+          },
+          "os": {
+            "type": "string"
+          },
+          "software": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "os",
+          "hostname",
+          "cpu",
+          "memory_bytes",
+          "disks",
+          "gpus",
+          "software",
+          "elevated"
+        ],
+        "type": "object"
+      },
+      "Task": {
+        "additionalProperties": false,
+        "properties": {
+          "approval_id": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "digest": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "string"
+          },
+          "error_message": {
+            "type": "string"
+          },
+          "finished_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "idempotency_key": {
+            "type": "string"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TaskResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "spec": {
+            "$ref": "#/components/schemas/TaskSpec"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "state": {
+            "enum": [
+              "pending_approval",
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled",
+              "timed_out",
+              "unknown"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "spec",
+          "state",
+          "idempotency_key",
+          "digest",
+          "created_at"
+        ],
+        "type": "object"
+      },
+      "TaskDispatch": {
+        "additionalProperties": false,
+        "properties": {
+          "approval_digest": {
+            "type": "string"
+          },
+          "task": {
+            "$ref": "#/components/schemas/Task"
+          }
+        },
+        "required": [
+          "task"
+        ],
+        "type": "object"
+      },
+      "TaskResult": {
+        "additionalProperties": false,
+        "properties": {
+          "exit_code": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "info": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SystemInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reboot_required": {
+            "type": "boolean"
+          },
+          "verified": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "reboot_required",
+          "verified"
+        ],
+        "type": "object"
+      },
+      "TaskSpec": {
+        "additionalProperties": false,
+        "properties": {
+          "device_id": {
+            "type": "string"
+          },
+          "package": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PackageRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "requires_admin": {
+            "type": "boolean"
+          },
+          "session_id": {
+            "type": "string"
+          },
+          "timeout_seconds": {
+            "type": "integer"
+          },
+          "type": {
+            "enum": [
+              "inspect_system",
+              "install_package"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "session_id",
+          "device_id",
+          "type",
+          "timeout_seconds",
+          "requires_admin"
+        ],
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "browserSession": {
+        "in": "cookie",
+        "name": "remoteops_session",
+        "type": "apiKey"
+      },
+      "operatorBearer": {
+        "scheme": "bearer",
+        "type": "http"
+      },
+      "privateSignature": {
+        "description": "HMAC with required timestamp and one-use nonce; see docs/architecture/protocol.md",
+        "in": "header",
+        "name": "X-RemoteOps-Signature",
+        "type": "apiKey"
+      }
+    }
+  },
+  "info": {
+    "description": "Normative DTOs generated from pkg/protocol. Management writes with cookie require Origin and X-CSRF-Token. Private requests/responses include X-RemoteOps-Time, X-RemoteOps-Nonce and X-RemoteOps-Signature, with v1 HMAC-SHA256 canonicalization, 60s freshness and direction-separated keys.",
+    "title": "RemoteOps",
+    "version": "1.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v1/approvals": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Approval"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "List approval evidence"
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateApprovalRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Approval"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Request human approval"
+      }
+    },
+    "/api/v1/approvals/{id}/approve": {
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {},
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Approval"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Cookie operator only; binds digest and expires; bearer Agent cannot approve"
+      }
+    },
+    "/api/v1/approvals/{id}/reject": {
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {},
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Approval"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Operator rejection"
+      }
+    },
+    "/api/v1/audit-events": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AuditEvent"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Read redacted audit events"
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [],
+        "summary": "Operator login; sets HttpOnly SameSite=Strict cookie"
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {},
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {},
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Destroy login session"
+      }
+    },
+    "/api/v1/catalog": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CatalogEntry"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Read pinned approved software catalog"
+      }
+    },
+    "/api/v1/config": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Config"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Read settings, excluding all credentials"
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Config"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Config"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Set bounded configuration"
+      }
+    },
+    "/api/v1/devices": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Device"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "List devices"
+      }
+    },
+    "/api/v1/devices/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Device"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Get device and last verified environment"
+      }
+    },
+    "/api/v1/network-status": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NetworkStatus"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Read local Tailscale connectivity without exposing credentials"
+      }
+    },
+    "/api/v1/plans": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Plan"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "List plans"
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskSpec"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Plan"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Validate TaskSpec and propose changes, without execution"
+      }
+    },
+    "/api/v1/sessions": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Session"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "List sessions"
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSessionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateSessionResponse"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Create one-use pairing and scoped authorization"
+      }
+    },
+    "/api/v1/sessions/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Session status"
+      }
+    },
+    "/api/v1/sessions/{id}/close": {
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {},
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Revoke before asynchronous node cleanup"
+      }
+    },
+    "/api/v1/sessions/{id}/pairing": {
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {},
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PairingBundle"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Browser operator only; rotate unused pairing, invalidate previous file and preserve deadline and authorization"
+      }
+    },
+    "/api/v1/sessions/{id}/retry-cleanup": {
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {},
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Retry failed node deletion"
+      }
+    },
+    "/api/v1/tasks": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "List tasks"
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTaskRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Atomically consume approval and enforce scoped idempotency"
+      }
+    },
+    "/api/v1/tasks/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Task outcome; unknown installations must not be replayed"
+      }
+    },
+    "/api/v1/tasks/{id}/cancel": {
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {},
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Cancel controlled process tree without claiming rollback"
+      }
+    },
+    "/api/v1/tasks/{id}/logs": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "after",
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 100,
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogsPage"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "operatorBearer": []
+          },
+          {
+            "browserSession": []
+          }
+        ],
+        "summary": "Bounded redacted logs by sequence cursor"
+      }
+    },
+    "/api/v1/worker/close": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HeartbeatRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "privateSignature": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://{controller}:9080",
+            "variables": {
+              "controller": {
+                "default": "100.64.0.1"
+              }
+            }
+          }
+        ],
+        "summary": "Worker initiated revocation"
+      }
+    },
+    "/api/v1/worker/heartbeat": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HeartbeatRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "privateSignature": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://{controller}:9080",
+            "variables": {
+              "controller": {
+                "default": "100.64.0.1"
+              }
+            }
+          }
+        ],
+        "summary": "Session-bound heartbeat and current authorization"
+      }
+    },
+    "/api/v1/worker/register": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterResponse"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "privateSignature": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://{controller}:9080",
+            "variables": {
+              "controller": {
+                "default": "100.64.0.1"
+              }
+            }
+          }
+        ],
+        "summary": "One-use pairing; peer resolved by Tailscale WhoIs; response signed with pairing token"
+      }
+    },
+    "/health": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "privateSignature": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://{worker}:9081",
+            "variables": {
+              "worker": {
+                "default": "100.64.0.2",
+                "description": "Validated session-bound tailnet peer"
+              }
+            }
+          }
+        ],
+        "summary": "Session-authenticated minimal health"
+      }
+    },
+    "/v1/session/close": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {},
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {},
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "privateSignature": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://{worker}:9081",
+            "variables": {
+              "worker": {
+                "default": "100.64.0.2",
+                "description": "Validated session-bound tailnet peer"
+              }
+            }
+          }
+        ],
+        "summary": "Immediately stop RPC acceptance and cancel work"
+      }
+    },
+    "/v1/tasks": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskDispatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "privateSignature": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://{worker}:9081",
+            "variables": {
+              "worker": {
+                "default": "100.64.0.2",
+                "description": "Validated session-bound tailnet peer"
+              }
+            }
+          }
+        ],
+        "summary": "Validate structured approval proof and start once; replay returns existing Task"
+      }
+    },
+    "/v1/tasks/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "privateSignature": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://{worker}:9081",
+            "variables": {
+              "worker": {
+                "default": "100.64.0.2",
+                "description": "Validated session-bound tailnet peer"
+              }
+            }
+          }
+        ],
+        "summary": "Local task state"
+      }
+    },
+    "/v1/tasks/{id}/cancel": {
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {},
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "privateSignature": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://{worker}:9081",
+            "variables": {
+              "worker": {
+                "default": "100.64.0.2",
+                "description": "Validated session-bound tailnet peer"
+              }
+            }
+          }
+        ],
+        "summary": "Cancel local task"
+      }
+    },
+    "/v1/tasks/{id}/logs": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "after",
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 100,
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogsPage"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Error: invalid_request, unauthorized, forbidden, session_expired, approval_required, conflict, not_found, permission_denied or execution error"
+          }
+        },
+        "security": [
+          {
+            "privateSignature": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://{worker}:9081",
+            "variables": {
+              "worker": {
+                "default": "100.64.0.2",
+                "description": "Validated session-bound tailnet peer"
+              }
+            }
+          }
+        ],
+        "summary": "Local bounded log cursor"
+      }
+    }
+  },
+  "security": [
+    {
+      "operatorBearer": []
+    },
+    {
+      "browserSession": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8080"
+    }
+  ]
+}

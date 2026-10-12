@@ -1,0 +1,14 @@
+/.codegraph/
+/.worktrees/
+/.superpowers/
+/dist/
+**/node_modules/
+web/dist/
+*.db
+*.db-shm
+*.db-wal
+*.exe
+*.test
+*.token
+/pairing*.json
+/.playwright-mcp/
